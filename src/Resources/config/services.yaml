@@ -1,0 +1,30 @@
+services:
+
+
+# --------
+# ContactBundle
+# --------
+
+    PiedWeb\ConversationBundle\PiedWebConversationBundle: ~
+
+    PiedWeb\ConversationBundle\:
+        autowire: true
+        resource: '../../../src/*'
+        exclude: '../../../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+
+    # controllers are imported separately to make sure services can be injected
+    # as action arguments even if you don't extend any base controller class
+    PiedWeb\ConversationBundle\Controller\:
+        autowire: true
+        resource: '../../../src/Controller'
+        tags: ['controller.service_arguments']
+
+    piedweb.admin.conversation:
+        class: PiedWeb\ConversationBundle\Admin\ConversationAdmin
+        arguments:
+            - ~
+            - PiedWeb\ConversationBundle\Entity\Message
+            - ~
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: admin.label.conversation }
+        public: true

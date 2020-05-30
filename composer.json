@@ -1,0 +1,26 @@
+{
+    "name": "piedweb/conversation",
+    "type": "symfony-bundle",
+    "description": "Conversation Extension for PiedWeb/CMS",
+    "keywords": [],
+    "homepage": "https://dev.piedweb.com",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "require": {
+        "piedweb/cms-bundle": "dev-master",
+        "symfony/mailer": "^4.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "PiedWeb\\ConversationBundle\\": "src/"
+        },
+        "exclude-from-classmap": [
+            "/Tests/"
+        ]
+    },
+    "authors": [{
+        "name": "Robin D.",
+        "email": "contact@piedweb.com",
+        "homepage": "https://piedweb.com/"
+    }]
+}
