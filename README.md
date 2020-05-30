@@ -30,6 +30,19 @@ conversation:
     resource: '@PiedWebConversationBundle/Resources/config/routes/conversation.yaml'
 ```
 
+Update sonata_admin config file to add an navlink :
+```
+        groups:
+            app.admin.group.page:
+                label: admin.label.content
+                label_catalogue: messages
+                items:
+                    - piedweb.admin.page
+                    - piedweb.admin.media
+                    - piedweb.admin.conversation
+```
+(or `ln -s -f vendor/piedweb/cms-bundle/src/Resources/config/packages/sonata_admin.yaml.fullFeatured config/packages/sonata_admin.yaml)
+
 ## Usage
 
 ### You can use it as is and include it in your Page with two manners :
