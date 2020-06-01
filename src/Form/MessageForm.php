@@ -26,7 +26,7 @@ class MessageForm
             $form->add('authorName', null, ['constraints' => $this->getAuthorNameConstraints()]);
         }
 
-        $form->add('message', TextareaType::class);
+        $form->add('content', TextareaType::class);
 
         return $form;
     }

@@ -12,12 +12,19 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class ConversationAdmin extends AbstractAdmin
 {
+    protected $datagridValues = [
+        '_page' => 1,
+        '_sort_order' => 'DESC',
+        '_sort_by' => 'createdAt',
+        '_per_page' => 256,
+    ];
+
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper->with('admin.conversation.label.conversation', ['class' => 'col-md-8'])
-            ->add('message', TextareaType::class, [
+            ->add('content', TextareaType::class, [
                 'attr' => ['rows' => 6],
-                'label' => 'admin.conversation.message.label',
+                'label' => 'admin.conversation.content.label',
             ])
             ->add('referring', TextType::class, [
                 'label' => 'admin.conversation.referring.label',
@@ -66,7 +73,7 @@ class ConversationAdmin extends AbstractAdmin
     {
         $listMapper
             ->add('referring', TextType::class)
-            ->addIdentifier('message')
+            ->addIdentifier('content')
             ->add('authorEmail')
             ->add('authorName')
             ->add('authorIpRaw')

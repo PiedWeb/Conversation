@@ -52,7 +52,13 @@ Update sonata_admin config file to add an navlink :
 <div data-live="{{ path('piedweb_cms_conversation') }}"></div>
 
 # Render form in Controller
-{{ render(controller('PiedWeb\\ConversationBundle\\Controller\\ConversationController::show')) }}
+{{ render(controller('PiedWeb\\ConversationBundle\\Controller\\ConversationFormController::show')) }}
+```
+
+### Render published comment
+
+```twig
+{{ listMessage(referring[, orderBy, limit, template]) }}
 ```
 
 ### Get mail notification for new message

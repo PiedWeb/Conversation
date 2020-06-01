@@ -1,6 +1,6 @@
 piedweb_cms_conversation:
   path: /conversation/{type}/{referring}
-  controller: PiedWeb\ConversationBundle\Controller\ConversationController::show
+  controller: PiedWeb\ConversationBundle\Controller\ConversationFormController::show
   methods: [POST]
   defaults:
     step: 1

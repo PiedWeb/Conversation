@@ -21,7 +21,7 @@ services:
     class: PiedWeb\ConversationBundle\Admin\ConversationAdmin
     arguments:
       - ~
-      - PiedWeb\ConversationBundle\Entity\Message
+      - '%pwc.conversation.entity_message%'
       - ~
     tags:
       - {
@@ -51,3 +51,16 @@ services:
       - '@piedweb.conversation.notifier'
     class: PiedWeb\ConversationBundle\Command\NotificationCommand
     tags: ['console.command']
+
+  piedweb.conversation.twig_extension:
+    class: PiedWeb\ConversationBundle\Twig\AppExtension
+    tags:
+      - 'twig.extension'
+      #- { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+    arguments:
+      ['@doctrine.orm.entity_manager', '%pwc.conversation.entity_message%']
+
+  PiedWeb\ConversationBundle\Repository\MessageRepository:
+    arguments: ['@doctrine', '%pwc.conversation.entity_message%']
+    tags:
+      - { name: doctrine.repository_service }

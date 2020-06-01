@@ -13,7 +13,7 @@ class NewsletterForm
     {
         $form = $this->initForm();
         $form->add('authorEmail', EmailType::class);
-        $this->message->setMessage($this->translator->trans('conversation.suscribeToNewsletter'));
+        $this->message->setContent($this->translator->trans('conversation.suscribeToNewsletter'));
 
         return $form;
     }

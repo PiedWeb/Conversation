@@ -3,7 +3,7 @@
 namespace PiedWeb\ConversationBundle\Form;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
-use PiedWeb\ConversationBundle\Entity\Message;
+use PiedWeb\ConversationBundle\Entity\MessageInterface as Message;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -63,7 +63,11 @@ trait FormTrait
     /** @var int */
     protected $messageId;
 
+    /** @var string */
+    protected $messageEntity;
+
     public function __construct(
+        string $messageEntity,
         Request $request,
         Registry $doctrine,
         TokenStorageInterface $security,
@@ -79,6 +83,7 @@ trait FormTrait
         $this->twig = $twig;
         $this->router = $router;
         $this->translator = $translator;
+        $this->messageEntity = $messageEntity;
     }
 
     /**
@@ -88,11 +93,11 @@ trait FormTrait
     protected function initForm(): FormBuilderInterface
     {
         if (1 === $this->getStep()) {
-            $this->message = new Message(); // todo, permit to configure it
+            $this->message = new $this->messageEntity(); // todo, permit to configure it
             $this->message->setAuthorIpRaw($this->request->getClientIp());
             $this->message->setReferring($this->getReferring());
         } else {
-            $this->message = $this->doctrine->getRepository(Message::class)->find($this->getId());
+            $this->message = $this->doctrine->getRepository($this->messageEntity)->find($this->getId());
             if (!$this->message) {
                 throw new NotFoundHttpException('An error occured during the validation ('.$this->getId().')');
             }
@@ -216,8 +221,8 @@ trait FormTrait
 
     protected function sanitizeConversation()
     {
-        $this->message->setMessage(
-            htmlentities($this->message->getMessage())
+        $this->message->setContent(
+            htmlentities($this->message->getContent())
         );
     }
 

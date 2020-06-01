@@ -12,7 +12,7 @@ class MultiStepMessageForm extends MessageForm
     {
         $form = $this->initForm();
 
-        $form->add('message', TextareaType::class);
+        $form->add('content', TextareaType::class);
 
         return $form;
     }

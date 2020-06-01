@@ -5,11 +5,12 @@ namespace PiedWeb\ConversationBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use PiedWeb\CMSBundle\Entity\IdTrait;
 use PiedWeb\CMSBundle\Entity\TimestampableTrait;
+use PiedWeb\ConversationBundle\Repository\MessageRepository;
 use Symfony\Component\HttpFoundation\IpUtils;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass=MessageRepository::class)
  */
 class Message
 {
@@ -41,11 +42,11 @@ class Message
      * @Assert\Length(
      *      min = 2,
      *      max = 200000,
-     *      minMessage = "conversation.message.short",
-     *      maxMessage = "conversation.message.long"
+     *      minMessage = "conversation.content.short",
+     *      maxMessage = "conversation.content.long"
      * )
      */
-    protected $message;
+    protected $content;
 
     /**
      * Identifier referring (most of time, URI).
@@ -80,27 +81,27 @@ class Message
     }
 
     /**
-     * Set message.
+     * Set message content.
      *
      * @param string|null
      *
-     * @return ContactForm
+     * @return self
      */
-    public function setMessage($message)
+    public function setContent($content)
     {
-        $this->message = $message;
+        $this->content = $content;
 
         return $this;
     }
 
     /**
-     * Get message.
+     * Get message content.
      *
      * @return string|null
      */
-    public function getMessage()
+    public function getContent()
     {
-        return $this->message;
+        return $this->content;
     }
 
     /**
@@ -201,5 +202,10 @@ class Message
     public function getAuthorIpRaw()
     {
         return long2ip($this->getAuthorIp());
+    }
+
+    public function __toString()
+    {
+        return $this->id.' ';
     }
 }

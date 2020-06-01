@@ -8,16 +8,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class ConversationController extends AbstractController
+class ConversationFormController extends AbstractController
 {
     private $translator;
 
     protected $form;
-
-    /**
-     * @var Conversation
-     */
-    protected $message;
 
     /**
      * @var ParameterBagInterface
@@ -32,7 +27,7 @@ class ConversationController extends AbstractController
         $this->params = $params;
     }
 
-    protected function getFormClass($type)
+    protected function getFormManagerClass($type)
     {
         $param = 'pwc.conversation.form'.($this->params->has('pwc.conversation.form.'.$type) ? '.'.$type : '_'.$type);
 
@@ -57,9 +52,10 @@ class ConversationController extends AbstractController
             return $this->form;
         }
 
-        $class = $this->getFormClass($type);
+        $class = $this->getFormManagerClass($type);
 
         return $this->form = new $class(
+            $this->params->get('pwc.conversation.entity_message'),
             $request,
             $this->get('doctrine'),
             $this->get('security.token_storage'),

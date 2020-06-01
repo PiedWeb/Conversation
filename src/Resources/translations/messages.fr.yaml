@@ -33,8 +33,8 @@ admin:
     authorIp:
       label: IP
 
-    message:
-      label: Message
+    content:
+      label: Contenu
 
     referring:
       label: Référant

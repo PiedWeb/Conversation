@@ -2,9 +2,10 @@
 {{ form_start(conversation) }}
     <div class="row text-right">
 
-        {% if conversation.message is defined %}
+        {% if conversation.content is defined %}
             <div class="col-lg-12 form-group step">
-                {{ form_row(conversation.message, {
+            {{ form_row(conversation.content, {
+
             label_attr: {class: 'sr-only', style: 'display:none'},
             attr: {
                 'placeholder': 'Message',
@@ -14,7 +15,7 @@
                 rows: 5
             }
             }) }}
-            {{ form_errors(conversation.message) }}
+            {{ form_errors(conversation.content) }}
             </div>
         {% endif %}
 
