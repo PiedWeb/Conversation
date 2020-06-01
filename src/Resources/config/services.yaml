@@ -1,30 +1,53 @@
 services:
+  # --------
+  # ContactBundle
+  # --------
 
+  PiedWeb\ConversationBundle\PiedWebConversationBundle: ~
 
-# --------
-# ContactBundle
-# --------
+  PiedWeb\ConversationBundle\:
+    autowire: true
+    resource: '../../../src/*'
+    exclude: '../../../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
 
-    PiedWeb\ConversationBundle\PiedWebConversationBundle: ~
+  # controllers are imported separately to make sure services can be injected
+  # as action arguments even if you don't extend any base controller class
+  PiedWeb\ConversationBundle\Controller\:
+    autowire: true
+    resource: '../../../src/Controller'
+    tags: ['controller.service_arguments']
 
-    PiedWeb\ConversationBundle\:
-        autowire: true
-        resource: '../../../src/*'
-        exclude: '../../../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+  piedweb.admin.conversation:
+    class: PiedWeb\ConversationBundle\Admin\ConversationAdmin
+    arguments:
+      - ~
+      - PiedWeb\ConversationBundle\Entity\Message
+      - ~
+    tags:
+      - {
+          name: sonata.admin,
+          manager_type: orm,
+          label: admin.label.conversation,
+        }
+    public: true
 
-    # controllers are imported separately to make sure services can be injected
-    # as action arguments even if you don't extend any base controller class
-    PiedWeb\ConversationBundle\Controller\:
-        autowire: true
-        resource: '../../../src/Controller'
-        tags: ['controller.service_arguments']
+  piedweb.conversation.notifier:
+    class: PiedWeb\ConversationBundle\Service\NewMessageMailNotifier
+    arguments:
+      [
+        '%pwc.conversation.entity_message%',
+        '@mailer',
+        '%pwc.email_sender%',
+        '%pwc.conversation.notification_emailTo%',
+        '%pwc.name%',
+        '%kernel.root_dir%',
+        '%pwc.conversation.notification_interval%',
+        '@doctrine.orm.entity_manager',
+        '@translator',
+      ]
 
-    piedweb.admin.conversation:
-        class: PiedWeb\ConversationBundle\Admin\ConversationAdmin
-        arguments:
-            - ~
-            - PiedWeb\ConversationBundle\Entity\Message
-            - ~
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: admin.label.conversation }
-        public: true
+  piedweb.conversation.notification_command:
+    arguments:
+      - '@piedweb.conversation.notifier'
+    class: PiedWeb\ConversationBundle\Command\NotificationCommand
+    tags: ['console.command']

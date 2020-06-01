@@ -2,8 +2,8 @@
 
 namespace PiedWeb\ConversationBundle\Controller;
 
-use PiedWeb\ConversationBundle\Entity\Message;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -19,9 +19,33 @@ class ConversationController extends AbstractController
      */
     protected $message;
 
-    public function __construct(TranslatorInterface $translator)
-    {
+    /**
+     * @var ParameterBagInterface
+     */
+    protected $params;
+
+    public function __construct(
+        TranslatorInterface $translator,
+        ParameterBagInterface $params
+    ) {
         $this->translator = $translator;
+        $this->params = $params;
+    }
+
+    protected function getFormClass($type)
+    {
+        $param = 'pwc.conversation.form'.($this->params->has('pwc.conversation.form.'.$type) ? '.'.$type : '_'.$type);
+
+        if (!$this->params->has($param)) {
+            throw new \Exception('`'.$type.'` does\'nt exist (not configured).');
+        }
+
+        $class = $this->params->get($param);
+        if (!class_exists($class)) {
+            throw new \Exception('`'.$type.'` does\'nt exist.');
+        }
+
+        return $class;
     }
 
     /**
@@ -33,11 +57,7 @@ class ConversationController extends AbstractController
             return $this->form;
         }
 
-        $class = 'PiedWeb\\ConversationBundle\\Form\\'.ucfirst($type).'Form';
-        // todo add a config alias => className
-        if (!class_exists($class)) {
-            throw new \Exception('`'.$type.'` does\'nt exist.');
-        }
+        $class = $this->getFormClass($type);
 
         return $this->form = new $class(
             $request,
@@ -63,19 +83,4 @@ class ConversationController extends AbstractController
 
         return $response->setContent($this->getFormManager($type, $request)->showForm($form));
     }
-
-    /*
-    protected function sendMessage(Contact $contact)
-    {
-        $message = (new \Swift_Message())
-                ->setSubject($this->translator->trans('contact.send.prefix_subject').' '.$contact->getName())
-                ->setFrom($this->container->getParameter('app.email.sender'))
-                ->setReplyTo($contact->getFr0m())
-                ->setTo($this->container->getParameter('app_contact_email'))
-                ->setBody($this->renderView('@PiedWebContact/contact/sendmail.html.twig'
-                , ['message' => $contact->getMessage()]), 'text/html');
-        $this->get('mailer')->send($message);
-
-        return;
-    }/**/
 }

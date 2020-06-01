@@ -66,9 +66,10 @@ class ConversationAdmin extends AbstractAdmin
     {
         $listMapper
             ->add('referring', TextType::class)
-            ->add('message')
+            ->addIdentifier('message')
             ->add('authorEmail')
             ->add('authorName')
+            ->add('authorIpRaw')
             ->add('createdAt')
             ->add('publishedAt');
     }

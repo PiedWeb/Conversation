@@ -9,7 +9,7 @@
 [![Build Status](https://img.shields.io/travis/PiedWeb/conversation/master.svg?style=flat)](https://travis-ci.org/PiedWeb/conversation)
 [![Quality Score](https://img.shields.io/scrutinizer/g/piedweb/conversation.svg?style=flat)](https://scrutinizer-ci.com/g/piedweb/conversation)
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/PiedWeb/conversation.svg?style=flat)](https://scrutinizer-ci.com/g/PiedWeb/conversation/code-structure)
-[![Total Downloads](https://img.shields.io/packagist/dt/piedweb/conversation-bundle.svg?style=flat)](https://packagist.org/packages/piedweb/conversation-bundle)
+[![Total Downloads](https://img.shields.io/packagist/dt/piedweb/conversation.svg?style=flat)](https://packagist.org/packages/piedweb/conversation)
 
 Extending a page with **comments**, a **contact** form or just an **user input**...
 
@@ -55,6 +55,14 @@ Update sonata_admin config file to add an navlink :
 {{ render(controller('PiedWeb\\ConversationBundle\\Controller\\ConversationController::show')) }}
 ```
 
+### Get mail notification for new message
+
+Configure the bundle (`piedweb_conversation.notification_emailTo`) and programm a cron :
+
+```
+bin/console conversation:notify
+```
+
 ## Customization
 
 ## Small rendering customization
@@ -65,15 +73,15 @@ or `'@PiedWebConversation/_'.$type.$referring.'Step'.$step.'.html.twig`).
 
 ## Create a new form
 
-// todo : add a configuration array wich map `type` to `class` and load it in the ConversationController ()
+Per default, there is 3 form types : `newsletter`, `message` and `multiStepMessage`.
 
-For now, you have 3 form types : `newsletter`, `message` and `multiStepMessage`.
+Add a new class in config `piedweb_conversation.form.myNewType: myNewFormClass`.
 
 ## TODO
 
 - [ ] Test
 - [ ] Remove bootstrap class from default view files (by moving them to PiedWebThemeComponent)
-- [ ] Add command to program an email notifier via cron
+- [ ] Email validator for new message
 
 ## Contributors
 
