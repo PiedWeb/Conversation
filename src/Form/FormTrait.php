@@ -66,6 +66,9 @@ trait FormTrait
     /** @var string */
     protected $messageEntity;
 
+    /** @var Message */
+    protected $message;
+
     public function __construct(
         string $messageEntity,
         Request $request,
@@ -94,7 +97,7 @@ trait FormTrait
     {
         if (1 === $this->getStep()) {
             $this->message = new $this->messageEntity(); // todo, permit to configure it
-            $this->message->setAuthorIpRaw($this->request->getClientIp());
+            $this->message->setAuthorIpRaw($this->request->getClientIp() ?? '');
             $this->message->setReferring($this->getReferring());
         } else {
             $this->message = $this->doctrine->getRepository($this->messageEntity)->find($this->getId());
