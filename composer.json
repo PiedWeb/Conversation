@@ -8,6 +8,11 @@
   "require": {
     "piedweb/cms-bundle": "^0"
   },
+  "require-dev": {
+    "symfony/phpunit-bridge": "^5.0",
+    "phpunit/phpunit": "^9",
+    "squizlabs/php_codesniffer": "^3.5"
+  },
   "autoload": {
     "psr-4": {
       "PiedWeb\\ConversationBundle\\": "src/"
