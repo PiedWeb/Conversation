@@ -41,7 +41,7 @@ Update sonata_admin config file to add an navlink :
                     - piedweb.admin.media
                     - piedweb.admin.conversation
 ```
-(or `ln -s -f vendor/piedweb/cms-bundle/src/Resources/config/packages/sonata_admin.yaml.fullFeatured config/packages/sonata_admin.yaml`)
+(or `ln -s -f vendor/piedweb/cms-bundle/src/Resources/config/packages/sonata_admin.fullFeatured.yaml config/packages/sonata_admin.yaml`)
 
 ## Usage
 
