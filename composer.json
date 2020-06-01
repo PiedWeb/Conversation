@@ -5,9 +5,8 @@
   "keywords": [],
   "homepage": "https://dev.piedweb.com",
   "license": "MIT",
-  "minimum-stability": "dev",
   "require": {
-    "piedweb/cms-bundle": "dev-master"
+    "piedweb/cms-bundle": "^0"
   },
   "autoload": {
     "psr-4": {
@@ -16,6 +15,11 @@
     "exclude-from-classmap": [
       "/Tests/"
     ]
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "0.x-dev"
+    }
   },
   "authors": [
     {
