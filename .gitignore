@@ -14,3 +14,4 @@ yarn-error.log
 /config/parameters.yaml
 .php_cs.cache
 composer.lock
+/build/

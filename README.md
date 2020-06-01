@@ -49,7 +49,7 @@ Update sonata_admin config file to add an navlink :
 
 ```bash
 # Load form via fetch (javascript)
-<div data-live="{{ path('piedweb_cms_conversation') }}"></div>
+<div data-live="{{ path('piedweb_cms_conversation', {'type': 'newsletter', 'referring': 'nslttr-'~page.slug}) }}"></div>
 
 # Render form in Controller
 {{ render(controller('PiedWeb\\ConversationBundle\\Controller\\ConversationFormController::show')) }}
