@@ -31,6 +31,7 @@ conversation:
 ```
 
 Update sonata_admin config file to add an navlink :
+
 ```
         groups:
             app.admin.group.page:
@@ -41,6 +42,7 @@ Update sonata_admin config file to add an navlink :
                     - piedweb.admin.media
                     - piedweb.admin.conversation
 ```
+
 (or `ln -s -f vendor/piedweb/cms-bundle/src/Resources/config/packages/sonata_admin.fullFeatured.yaml config/packages/sonata_admin.yaml`)
 
 ## Usage
@@ -53,6 +55,9 @@ Update sonata_admin config file to add an navlink :
 
 # Render form in Controller
 {{ render(controller('PiedWeb\\ConversationBundle\\Controller\\ConversationFormController::show')) }}
+
+# Or add a button to click before loading block
+<button src-data-live="{{ path('piedweb_cms_conversation', {'type': 'newsletter', 'referring': 'nslttr-'~page.slug}) }}" class="btn btn-primary">Register</button>
 ```
 
 ### Render published comment
