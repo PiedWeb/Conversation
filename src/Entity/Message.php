@@ -19,13 +19,13 @@ class Message
 
     /**
      * @var string
-     * @ORM\Column(type="string", length=180)
+     * @ORM\Column(type="string", length=180, nullable=true)
      */
     protected $authorName = '';
 
     /**
      * @var string
-     * @ORM\Column(type="string", length=180)
+     * @ORM\Column(type="string", length=180, nullable=true)
      */
     protected $authorEmail = '';
 
@@ -37,7 +37,7 @@ class Message
 
     /**
      * @var string
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      * @Assert\NotBlank()
      * @Assert\Length(
      *      min = 2,
@@ -119,7 +119,7 @@ class Message
      *
      * @return self
      */
-    public function setAuthorName(string $authorName)
+    public function setAuthorName(?string $authorName)
     {
         $this->authorName = $authorName;
 
@@ -141,7 +141,7 @@ class Message
      *
      * @return self
      */
-    public function setAuthorEmail(string $authorEmail)
+    public function setAuthorEmail(?string $authorEmail)
     {
         $this->authorEmail = $authorEmail;
 
