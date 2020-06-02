@@ -71,14 +71,10 @@ class ConversationFormController extends AbstractController
         $response = new Response();
 
         if ($this->params->has('pwc.static.domain')) {
-            $possibleOrigins = array_merge(
-                $this->params->has('pwc.conversation.possible_origins') ?
-                    $this->params->get('pwc.conversation.possible_origins') : [],
-                [
-                    'https://'.$request->getHost(),
-                    'https://'.$this->params->get('pwc.static.domain'),
-                ]
-            );
+            $possibleOrigins = $this->params->has('pwc.conversation.possible_origins') ?
+                    explode(' ', $this->params->get('pwc.conversation.possible_origins')) : [];
+            $possibleOrigins[] = 'https://'.$request->getHost();
+            $possibleOrigins[] = 'https://'.$this->params->get('pwc.static.domain');
 
             if (in_array($request->headers->get('origin'), $possibleOrigins)) {
                 $origin = $request->headers->get('origin');

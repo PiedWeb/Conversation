@@ -33,7 +33,7 @@ class Configuration implements ConfigurationInterface
                     ->scalarNode('form_newsletter')
                         ->defaultValue('PiedWeb\ConversationBundle\Form\NewsletterForm')
                     ->end()
-                    ->arrayNode('possible_origins')->beforeNormalization()->castToArray()->end()
+                    ->scalarNode('possible_origins')->defaultNull()->end()
                 ->end()
         ;
 
