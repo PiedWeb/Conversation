@@ -110,7 +110,7 @@ trait FormTrait
             // sinon, passer l'id dans la session plutôt que dans la requête
         }
 
-        $form = $this->formFactory->createBuilder(FormType::class, $this->message, []);
+        $form = $this->formFactory->createBuilder(FormType::class, $this->message, ['csrf_protection' => false]);
 
         $form->setAction($this->router->generate('piedweb_cms_conversation', [
             'type' => $this->getType(),
