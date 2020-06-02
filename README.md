@@ -63,10 +63,7 @@ Update sonata_admin config file to add an navlink :
 Activate the `data-live` element with [piedweb-cms-js-helper](https://yarnpkg.com/package/piedweb-cms-js-helpers) :
 
 ````
-import {
-  imgLazyLoad,
-  liveForm,
-} from "piedweb-cms-js-helpers/src/helpers";
+import { liveForm } from "piedweb-cms-js-helpers/src/helpers";
 
 // on dom changed and on page loaded :
 liveBlock();
