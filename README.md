@@ -60,11 +60,23 @@ Update sonata_admin config file to add an navlink :
 <button src-data-live="{{ path('piedweb_cms_conversation', {'type': 'newsletter', 'referring': 'nslttr-'~page.slug}) }}" class="btn btn-primary">Register</button>
 ```
 
+Activate the `data-live` element with [piedweb-cms-js-helper](https://yarnpkg.com/package/piedweb-cms-js-helpers) :
+
+````
+import {
+  imgLazyLoad,
+  liveForm,
+} from "piedweb-cms-js-helpers/src/helpers";
+
+// on dom changed and on page loaded :
+liveBlock();
+```
+
 ### Render published comment
 
 ```twig
 {{ listMessage(referring[, orderBy, limit, template]) }}
-```
+````
 
 ### Get mail notification for new message
 
