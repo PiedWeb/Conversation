@@ -1,7 +1,7 @@
 {% for message in messages %}
-    <div>
-        {{ message.content|markdown }}
-        <small>Message posté le {{ message.createdAt|date('d/m/Y à H:i') }} {{ message.authorName ? 'par ' ~ message.authorName : '' }}.</small>
-        <hr>
-    </div>
+<div>
+    {{ message.content|markdown }}
+    <small>Message posté le {{ message.createdAt|date('d/m/Y à H:i') }} {{ message.authorName ? 'par ' ~ message.authorName : '' }}.</small>
+    <hr>
+</div>
 {% endfor %}

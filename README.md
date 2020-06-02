@@ -72,7 +72,7 @@ liveBlock();
 ### Render published comment
 
 ```twig
-{{ listMessage(referring[, orderBy, limit, template]) }}
+{{ showConversation(referring[, orderBy, limit, template]) }}
 ````
 
 ### Get mail notification for new message

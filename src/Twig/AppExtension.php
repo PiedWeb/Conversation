@@ -25,14 +25,14 @@ class AppExtension extends AbstractExtension
     public function getFunctions()
     {
         return [
-            new TwigFunction('listMessages', [$this, 'listMessages'], [
+            new TwigFunction('showConversation', [$this, 'showConversation'], [
                 'is_safe' => ['html'],
                 'needs_environment' => true,
             ]),
         ];
     }
 
-    public function listMessages(
+    public function showConversation(
         Twig $env,
         string $referring,
         string $orderBy = 'createdAt DESC',

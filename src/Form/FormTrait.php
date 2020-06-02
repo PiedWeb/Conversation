@@ -226,7 +226,7 @@ trait FormTrait
     protected function sanitizeConversation()
     {
         $this->message->setContent(
-            htmlentities($this->message->getContent())
+            htmlspecialchars($this->message->getContent())
         );
     }
 
