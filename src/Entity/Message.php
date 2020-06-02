@@ -187,9 +187,11 @@ class Message
      *
      * @return self
      */
-    public function setAuthorIp(int $authorIp)
+    public function setAuthorIp(?int $authorIp)
     {
-        $this->authorIp = $authorIp;
+        if (null !== $authorIp) {
+            $this->authorIp = $authorIp;
+        }
 
         return $this;
     }
