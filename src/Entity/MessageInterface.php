@@ -11,4 +11,8 @@ interface MessageInterface
     public function getAuthorIp();
 
     public function getContent();
+
+    public function getId();
+
+    public function setContent(string $content);
 }

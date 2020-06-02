@@ -11,6 +11,7 @@ use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\IpUtils;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Validator\Constraints\Email;
@@ -116,7 +117,7 @@ trait FormTrait
             'referring' => $this->getReferring(),
             'id' => $this->getId(),
             'step' => $this->getStep(),
-        ]));
+        ], UrlGeneratorInterface::ABSOLUTE_URL));
 
         return $form;
     }

@@ -66,9 +66,38 @@ class ConversationFormController extends AbstractController
         );
     }
 
-    public function show(string $type, Request $request)
+    protected function initResponse($request): Response
     {
         $response = new Response();
+
+        if ($this->params->has('pwc.static.domain')) {
+            $possibleOrigins = array_merge(
+                $this->params->has('pwc.conversation.possible_origins') ?
+                    $this->params->get('pwc.conversation.possible_origins') : [],
+                [
+                    'https://'.$request->getHost(),
+                    'https://'.$this->params->get('pwc.static.domain'),
+                ]
+            );
+
+            if (in_array($request->headers->get('origin'), $possibleOrigins)) {
+                $origin = $request->headers->get('origin');
+            } else {
+                $origin = 'https://'.$this->params->get('pwc.static.domain');
+            }
+
+            $response->headers->set('Access-Control-Allow-Credentials', 'true');
+            $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PATCH, PUT, DELETE, OPTIONS');
+            $response->headers->set('Access-Control-Allow-Headers', 'Origin, Content-Type, X-Auth-Token');
+            $response->headers->set('Access-Control-Allow-Origin', $origin);
+        }
+
+        return $response;
+    }
+
+    public function show(string $type, Request $request)
+    {
+        $response = $this->initResponse($request);
 
         $form = $this->getFormManager($type, $request)->getCurrentStep()->getForm();
         $form->handleRequest($request);
