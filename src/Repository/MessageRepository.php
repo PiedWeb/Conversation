@@ -19,7 +19,7 @@ class MessageRepository extends ServiceEntityRepository
 
         $q = $this->createQueryBuilder('m')
             ->andWhere('m.publishedAt is NOT NULL')
-            ->andWhere('m.referring <=  :referring')
+            ->andWhere('m.referring =  :referring')
             ->setParameter('referring', $referring)
             ->orderBy('m.'.$orderBy[0], $orderBy[1])
             ->getQuery();
