@@ -87,8 +87,12 @@ class ConversationFormController extends AbstractController
         $this->possibleOrigins[] = 'http://'.$request->getHost().':8001';
         $this->possibleOrigins[] = 'http://'.$request->getHost().':8002';
 
-        if ($this->params->has('pwc.static.domain')) {
-            $this->possibleOrigins[] = 'https://'.$this->params->get('pwc.static.domain');
+        if ($this->params->has('pwc.apps')) {
+            foreach ($this->params->get('pwc.apps') as $app) {
+                foreach ($app['hosts'] as $host) {
+                    $this->possibleOrigins[] = 'https://'.$host;
+                }
+            }
         }
 
         return $this->possibleOrigins;
