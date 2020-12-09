@@ -282,7 +282,7 @@ trait FormTrait
             new NotBlank(),
             new Email([
                 'message' => 'user.email.invalid',
-                'checkMX' => true,
+                'mode' => 'strict',
             ]),
         ];
     }
